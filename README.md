@@ -1,0 +1,2 @@
+# SQL-Journey
+My Script
