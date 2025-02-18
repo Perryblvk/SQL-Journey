@@ -39,3 +39,7 @@ from parks_and_recreation.employee_demographics
 -- order by last_name desc
 order by Gender, Age asc
 ;
+select * from person.Person
+where BusinessEntityID in (1,2,3,4,5,6,7,8)
+Order by EmailPromotion desc
+;
