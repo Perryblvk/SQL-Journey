@@ -63,6 +63,14 @@ SELECT * FROM movies_tb
 where year(Release_Date) > 2010
 order by Release_Date desc
 ;
+
+-- Generate Movie records for Movie ID, Movie Title, Genre, Movie_length, Director (for id 3,9,23,90,14,220,265,295,296,297,298,299,300)
+
+SELECT Movie_Id, Movie_Title, Genre, Length_Minutes, Director
+FROM movies_tb
+where movie_id in (3,9,23,90,14,220,265,295,296,297,298,299,300)
+;
+
 -- No of movies by genre
 
 SELECT Genre, count(genre) as sum_of_genre
@@ -98,3 +106,4 @@ else 'Restricted'
 END AS Rating_meaning
 from movies_tb
 ;
+
