@@ -107,3 +107,57 @@ END AS Rating_meaning
 from movies_tb
 ;
 
+select * from [Sales].[SalesPerson]
+
+--- Answering Business question to state Total Sales by Years in Sales Table
+Select YEAR(modifieddate) AS Years, Round(SUM(SalesYTD),1) as TotalSales
+from Sales.SalesPerson
+Group by Year(Modifieddate)
+;
+--- Tables callup
+SELECT TOP 5 * FROM Person.Person
+SELECT TOP 5 * FROM Person.BusinessEntity
+SELECT TOP 5 * FROM Person.AddressType
+-- THE JOIN SYNTAX
+-- Inner Join/Join
+
+Select pp.PersonType, pp.FirstName, pp.MiddleName , pp.LastName, pp.Demographics, pb.rowguid
+from Person.Person as PP
+Join person.BusinessEntity as PB
+On PP.BusinessEntityID = PB.BusinessEntityID
+;
+
+SELECT TOP 5 * FROM Production.Product;
+SELECT TOP 5 * FROM Person.Person;
+SELECT TOP 5 * FROM Production.ProductCategory;
+-- Right Join
+
+Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
+from Production.Product as G
+Right Join  person.Person H
+On G.ProductID = H.BusinessEntityID
+;
+
+-- Left Join
+
+Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
+from Production.Product as G
+Left Join  person.Person H
+On G.ProductID = H.BusinessEntityID
+;
+
+-- Full Join
+
+Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
+from Production.Product as G
+Full Join  person.Person H
+On G.ProductID = H.BusinessEntityID
+;
+
+--Inner Join
+
+Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
+from Production.Product as G
+Join  person.Person H
+On G.ProductID = H.BusinessEntityID
+;
