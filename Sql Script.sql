@@ -24,7 +24,7 @@ Select *
 from parks_and_recreation.employee_demographics
 where birth_date Like '1989%'
 ;
--- GROUP BY AND ORDER BY
+-- GROUP BY AND ORDER BY.
 -- GROUP BY
 
 Select gender, avg(Age), max(Age), min(Age), count(Age)
