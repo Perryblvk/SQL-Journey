@@ -139,7 +139,6 @@ On G.ProductID = H.BusinessEntityID
 ;
 
 -- Left Join
-
 Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
 from Production.Product as G
 Left Join  person.Person H
@@ -147,7 +146,6 @@ On G.ProductID = H.BusinessEntityID
 ;
 
 -- Full Join
-
 Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
 from Production.Product as G
 Full Join  person.Person H
@@ -155,9 +153,22 @@ On G.ProductID = H.BusinessEntityID
 ;
 
 --Inner Join
-
 Select G.Name, G.ProductNumber, G.SafetyStockLevel , g.ReorderPoint, h.ModifiedDate, H.rowguid,H.FirstName,H.LastName
 from Production.Product as G
 Join  person.Person H
 On G.ProductID = H.BusinessEntityID
+;
+--Adding the where function and inner join
+Select PS.employee_id,PD.first_name, PD.last_name, PD.age , PD.Gender, PD.Age * 2 AS "Multiply Age", PS.salary,PS.occupation,PS.dept_id
+from parks_and_recreation.employee_demographics as PD
+inner join parks_and_recreation.employee_salary as PS
+On PD.employee_id = PS.employee_id
+where PS.employee_id in (3,5,10,11,12,7)
+;
+--Adding the table join and Order by function
+Select PS.employee_id,PD.first_name, PD.last_name, PD.age , PD.Gender, PD.Age * 2 AS "Multiply Age", PS.salary,PS.occupation,PS.dept_id
+from parks_and_recreation.employee_demographics as PD
+join parks_and_recreation.employee_salary as PS
+On PD.employee_id = PS.employee_id
+order by PS.employee_id asc
 ;
