@@ -7,6 +7,9 @@ FROM parks_and_recreation.employee_demographics
 where age != 44
 and gender = 'female'
 ;
+--Limit the result returned to Top 8
+select * from parks_and_recreation.employee_demographics
+limit 8;
 
 -- Script to a specified column based on the first name using the Like syntax
 Select *
