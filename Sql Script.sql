@@ -1,22 +1,25 @@
 SELECT employee_id, Last_name, age, birth_date , age * 10
 FROM parks_and_recreation.employee_demographics;
 # PEMDAS
+-- AND OR NOT --- Logical Operators
 Select Last_name, First_name, Gender, Age, birth_date
 FROM parks_and_recreation.employee_demographics
 where age != 44
 and gender = 'female'
 ;
--- AND OR NOT --- Logical Operators
 
+-- Script to a specified column based on the first name using the Like syntax
 Select *
 from parks_and_recreation.employee_demographics
 where first_name Like '%Apr%'
 ;
-
+-- Script to a specified column that starts with A and three other alphabets using the Like syntax
 Select *
 from parks_and_recreation.employee_demographics
 where first_name Like 'A____%'
 ;
+-- Script to a specified column based on the birth date using the Like syntax
+
 Select *
 from parks_and_recreation.employee_demographics
 where birth_date Like '1989%'
@@ -165,10 +168,18 @@ inner join parks_and_recreation.employee_salary as PS
 On PD.employee_id = PS.employee_id
 where PS.employee_id in (3,5,10,11,12,7)
 ;
---Adding the table join and Order by function
+--Adding the table join and Order by function to portray the result in ascending order by employee ID
 Select PS.employee_id,PD.first_name, PD.last_name, PD.age , PD.Gender, PD.Age * 2 AS "Multiply Age", PS.salary,PS.occupation,PS.dept_id
 from parks_and_recreation.employee_demographics as PD
 join parks_and_recreation.employee_salary as PS
 On PD.employee_id = PS.employee_id
 order by PS.employee_id asc
+;
+
+--Adding the table join and Order by function to portray the result in ascending order by Salary
+Select PS.employee_id,PD.first_name, PD.last_name, PD.age , PD.Gender, PD.Age * 2 AS "Multiply Age", PS.salary,PS.occupation,PS.dept_id
+from parks_and_recreation.employee_demographics as PD
+inner join parks_and_recreation.employee_salary as PS
+On PD.employee_id = PS.employee_id
+order by PS.salary asc
 ;
