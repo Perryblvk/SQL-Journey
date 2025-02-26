@@ -7,6 +7,17 @@ FROM parks_and_recreation.employee_demographics
 where age != 44
 and gender = 'female'
 ;
+--- Insert data in a table
+Insert Into parks_and_recreation.employee_demographics
+  (Last_name, First_name, Gender, Age, birth_date)
+Values
+  ('Femi', 'Adeoye', 'Male', 40, '19/12/1998' )
+;
+-- Update inputted data in a table
+Update parks_and_recreation.employee_demographics
+Set Age = 45
+where Last_Name = 'Femi' and First_Name = 'Adeoye'
+;
 --Limit the result returned to Top 8
 select * from parks_and_recreation.employee_demographics
 limit 8;
