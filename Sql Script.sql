@@ -69,7 +69,7 @@ order by Score desc
 SELECT * FROM movies_tb
 where Genre = 'Action' and Rating = 'PG-13'
 ;
--- To showcase length of text in Ratings column
+-- To showcase length(No) of text in Ratings column
 select Rating,
 Len (Rating) as "Length of Text in rating"
 from dbo.movies_tb
