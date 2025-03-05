@@ -207,7 +207,7 @@ select * from HumanResources.Employee
 where OrganizationLevel in (1,3,4)
 and NationalIDNumber = 245797967
 ;
--- Combination of inner join, the where for filer and IN syntax while arranging in descending order using the Business Entity ID
+-- Combination of inner join, the where and in syntax for filter while sorting in descending using Order by
 Select HE.BusinessEntityID,HE.NationalIDNumber,HE.LoginID,HE.OrganizationNode ,HE.OrganizationLevel,HED.ModifiedDate,HED.DepartmentID,HED.StartDate,HED.EndDate
 from HumanResources.Employee as HE
 inner join HumanResources.EmployeeDepartmentHistory  as HED
