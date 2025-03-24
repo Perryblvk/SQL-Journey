@@ -76,7 +76,10 @@ AND population > 10000
 order by area 
 asc limit 6
 ;
-
+-- retrieve the substrate column and count the number of vehicles for each substrate.
+select substrate, count (vehicle) from vehicles 
+group by substrate
+;
 select * from person.Person
 where BusinessEntityID in (1,2,3,4,5,6,7,8)
 Order by EmailPromotion desc
