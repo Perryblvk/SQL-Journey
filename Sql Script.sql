@@ -69,6 +69,13 @@ where continent = 'Africa'
 order by area 
 DESC limit 5
 ;
+--Select the 6 smallest countries of South America that have a population greater than 10 thousand.
+Select * FROM countries 
+where continent = 'South America' 
+AND population > 10000 
+order by area 
+asc limit 6
+;
 
 select * from person.Person
 where BusinessEntityID in (1,2,3,4,5,6,7,8)
