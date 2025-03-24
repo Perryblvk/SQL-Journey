@@ -56,6 +56,20 @@ from parks_and_recreation.employee_demographics
 -- order by last_name desc
 order by Gender, Age asc
 ;
+
+--What are the 3 largest radius moons of Saturn?
+Select * FROM moons 
+where planet = 'Saturn' 
+order by radius 
+DESC LIMIT 3
+;
+-- what are the 5 largest area countries of Africa?
+Select * FROM countries 
+where continent = 'Africa' 
+order by area 
+DESC limit 5
+;
+
 select * from person.Person
 where BusinessEntityID in (1,2,3,4,5,6,7,8)
 Order by EmailPromotion desc
