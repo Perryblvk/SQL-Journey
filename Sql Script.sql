@@ -267,3 +267,13 @@ On HE.BusinessEntityID = HED.BusinessEntityID
 WHERE HED.BusinessEntityID IN (3,4,5,6,7,8,9,10)
 order by HE.BusinessEntityID DESC
 ;
+-- -- Combinatiion of Inner join,as, On, and, where, In function to merge details from multiple tables  and filter by BusinessEntityID then extract details where PersonType column is EM and Last Name is Matthew
+Select PP.BusinessEntityID,PP.PersonType,PP.FirstName,pp.LastName,pp.EmailPromotion, PB.rowguid,PB.ModifiedDate,PE.EmailAddress,PE.EmailAddressID
+from Person.Person as PP
+inner join Person.BusinessEntity as PB
+On PP.BusinessEntityID = PB.BusinessEntityID
+inner join Person.EmailAddress as PE
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID)
+where PE.BusinessEntityID IN (1,2,3,4,5,6,7,8,9,18,30,245,247,850,10000)
+and PP.PersonType = 'EM' and PP.LastName ='Matthew'
+;
