@@ -296,3 +296,13 @@ DATEDIFF(year, BirthDate, GETDATE())
             THEN 1 ELSE 0 
 			END AS Age
 			from HumanResources.Employee
+-- Combination of 4 tables adding concat In function where person Type is EM and First name starts with letter J
+Select PP.BusinessEntityID,PP.PersonType,PP.FirstName,pp.LastName,pp.EmailPromotion, PB.rowguid,PB.ModifiedDate,PE.EmailAddress,PE.EmailAddressID,ppd.PasswordHash,ppd.PasswordSalt, CONCAT(pp.firstName, ' ','-',' ',PP.LastName)as FullName
+from Person.Person as PP
+inner join Person.BusinessEntity as PB
+On PP.BusinessEntityID = PB.BusinessEntityID
+inner join Person.EmailAddress as PE
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID)
+inner join Person.Password as PPD
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID and ppd.BusinessEntityID=PE.BusinessEntityID)
+where PE.BusinessEntityID IN (1,2,3,4,5,6,7,8,9,18,30,245,247,850,10000) and pp.PersonType ='EM' and pp.FirstName like 'J%'
