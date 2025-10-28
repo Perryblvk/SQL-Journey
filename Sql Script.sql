@@ -277,3 +277,22 @@ on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessE
 where PE.BusinessEntityID IN (1,2,3,4,5,6,7,8,9,18,30,245,247,850,10000)
 and PP.PersonType = 'EM' and PP.LastName ='Matthew'
 ;
+-- Combination of 4 tables using inner join, as, On, and, where, In function where person Type is EM and First name starts with letter R
+Select PP.BusinessEntityID,PP.PersonType,PP.FirstName,pp.LastName,pp.EmailPromotion, PB.rowguid,PB.ModifiedDate,PE.EmailAddress,PE.EmailAddressID,ppd.PasswordHash,ppd.PasswordSalt
+from Person.Person as PP
+inner join Person.BusinessEntity as PB
+On PP.BusinessEntityID = PB.BusinessEntityID
+inner join Person.EmailAddress as PE
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID)
+inner join Person.Password as PPD
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID and ppd.BusinessEntityID=PE.BusinessEntityID)
+where PE.BusinessEntityID IN (1,2,3,4,5,6,7,8,9,18,30,245,247,850,10000) and pp.PersonType ='EM' and pp.FirstName like 'R%'
+;
+--Add AGE of staffs from their DOB
+select BusinessEntityID, NationalIDNumber, LoginID, OrganizationNode, JobTitle, MaritalStatus, Gender, HireDate, VacationHours, BirthDate,
+DATEDIFF(year, BirthDate, GETDATE())
+          - CASE WHEN (MONTH(BirthDate) > MONTH(GETDATE())) 
+                  OR (MONTH(BirthDate) = MONTH(GETDATE()) AND DAY(BirthDate) > DAY(GETDATE())) 
+            THEN 1 ELSE 0 
+			END AS Age
+			from HumanResources.Employee
