@@ -306,3 +306,44 @@ on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessE
 inner join Person.Password as PPD
 on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID and ppd.BusinessEntityID=PE.BusinessEntityID)
 where PE.BusinessEntityID IN (1,2,3,4,5,6,7,8,9,18,30,245,247,850,10000) and pp.PersonType ='EM' and pp.FirstName like 'J%'
+	
+-- multi-table SQL Server query joining Person and HumanResources schemas to compute employee ages, classify them into dynamic age groups (Minor, Adult, Aged), and order results from youngest to oldest for analytical insights.
+Select PP.BusinessEntityID,PP.PersonType,PP.FirstName,pp.LastName,pp.EmailPromotion, PB.rowguid,PB.ModifiedDate,PE.EmailAddress,PE.EmailAddressID,ppd.PasswordHash,ppd.PasswordSalt,HE.jobTitle,HE.NationalIDNumber,
+HE.MaritalStatus,HE.HireDate,HE.VacationHours,HE.SickLeaveHours,HE.BirthDate,
+DATEDIFF(YEAR, HE.BirthDate, GETDATE())
+      - CASE 
+          WHEN (MONTH(HE.BirthDate) > MONTH(GETDATE())) 
+               OR (MONTH(HE.BirthDate) = MONTH(GETDATE()) AND DAY(HE.BirthDate) > DAY(GETDATE())) 
+          THEN 1 ELSE 0 
+        END AS Age,
+		CASE 
+        WHEN (DATEDIFF(YEAR, HE.BirthDate, GETDATE())
+              - CASE 
+                  WHEN (MONTH(hE.BirthDate) > MONTH(GETDATE())) 
+                       OR (MONTH(HE.BirthDate) = MONTH(GETDATE()) AND DAY(HE.BirthDate) > DAY(GETDATE())) 
+                  THEN 1 ELSE 0 
+                END) < 18 THEN 'Minor'
+        WHEN (DATEDIFF(YEAR, HE.BirthDate, GETDATE())
+              - CASE 
+                  WHEN (MONTH(HE.BirthDate) > MONTH(GETDATE())) 
+                       OR (MONTH(HE.BirthDate) = MONTH(GETDATE()) AND DAY(HE.BirthDate) > DAY(GETDATE())) 
+                  THEN 1 ELSE 0 
+                END) BETWEEN 18 AND 59 THEN 'Adult'
+        ELSE 'Aged'
+    END AS AgeGroup
+from Person.Person as PP
+inner join Person.BusinessEntity as PB
+On PP.BusinessEntityID = PB.BusinessEntityID
+inner join Person.EmailAddress as PE
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID)
+inner join Person.Password as PPD
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID and ppd.BusinessEntityID=PE.BusinessEntityID)
+inner join HumanResources.Employee as HE
+on (PP.BusinessEntityID=PE.BusinessEntityID and PB.BusinessEntityID=PE.BusinessEntityID and ppd.BusinessEntityID=PE.BusinessEntityID and HE.BusinessEntityID=PE.BusinessEntityID)
+ORDER BY 
+    DATEDIFF(YEAR, HE.BirthDate, GETDATE()) 
+    - CASE 
+        WHEN (MONTH(HE.BirthDate) > MONTH(GETDATE())) 
+             OR (MONTH(HE.BirthDate) = MONTH(GETDATE()) AND DAY(HE.BirthDate) > DAY(GETDATE())) 
+        THEN 1 ELSE 0 
+      END ASC;
